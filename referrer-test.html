@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="no-referrer">
+  <title>Referrer Test</title>
+  <style>
+    :root { color-scheme: dark; font-family: system-ui, sans-serif; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #101827; color: #eef4ff; }
+    main { width: min(720px, calc(100% - 32px)); box-sizing: border-box; padding: 24px; border: 1px solid #3d5276; border-radius: 12px; background: #18243a; }
+    h1 { margin: 0 0 20px; font-size: 24px; }
+    dl { margin: 0; display: grid; grid-template-columns: 150px 1fr; gap: 12px 16px; }
+    dt { color: #a9bddf; }
+    dd { margin: 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+    .missing { color: #ffd479; }
+    .present { color: #8ff0b0; }
+    small { display: block; margin-top: 20px; color: #a9bddf; line-height: 1.5; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Referrer Test</h1>
+    <dl>
+      <dt>Referer status</dt>
+      <dd id="status"></dd>
+      <dt>document.referrer</dt>
+      <dd id="referrer"></dd>
+      <dt>Current URL</dt>
+      <dd id="url"></dd>
+      <dt>Loaded at</dt>
+      <dd id="time"></dd>
+    </dl>
+    <small>This page displays the referrer value exposed to JavaScript by the browser. It cannot read the raw HTTP request header directly.</small>
+  </main>
+  <script>
+    const referrer = document.referrer;
+    const hasReferrer = referrer.length > 0;
+    document.querySelector('#status').textContent = hasReferrer ? 'Referer was provided' : 'No Referer was provided';
+    document.querySelector('#status').className = hasReferrer ? 'present' : 'missing';
+    document.querySelector('#referrer').textContent = hasReferrer ? referrer : '(empty)';
+    document.querySelector('#url').textContent = location.href;
+    document.querySelector('#time').textContent = new Date().toISOString();
+  </script>
+</body>
+</html>
